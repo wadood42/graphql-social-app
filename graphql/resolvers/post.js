@@ -1,7 +1,7 @@
 const { AuthenticationError, UserInputError } = require("apollo-server");
 const Post = require("../../models/Post");
 const checkAuth = require("../../utils/check_auth");
-
+const { validatePost } = require("../../validations/post_validations");
 module.exports = {
   Query: {
     async getPosts() {
@@ -30,15 +30,23 @@ module.exports = {
   Mutation: {
     async createPost(parent, { body }, context) {
       const user = checkAuth(context);
-      console.log("user from create post", user);
-      const newPost = new Post({
-        body,
-        user: user.id,
-        username: user.username,
-      });
 
-      const savedPost = await newPost.save();
-      return savedPost;
+      if (user) {
+        const { isValid, errors } = validatePost(body);
+        if (isValid()) {
+          const newPost = new Post({
+            body,
+            user: user.id,
+            username: user.username,
+          });
+          const savedPost = await newPost.save();
+          return savedPost;
+        } else {
+          throw new UserInputError(errors.body);
+        }
+      } else {
+        throw new AuthenticationError("must be logged in first");
+      }
     },
 
     async deletePost(parent, args, context) {
