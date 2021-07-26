@@ -1,0 +1,47 @@
+.main-container {
+  /* border: 1px solid blue; */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu {
+  border-bottom: 1px solid rgb(202, 202, 202);
+  display: flex;
+  justify-content: space-between;
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: rgb(136, 134, 134);
+  /* border: 1px solid red; */
+  padding-bottom: 9px;
+}
+
+.home {
+  /* border: 1px solid red; */
+  flex: 6;
+  /* display: block; */
+}
+
+.login {
+  /* border: 1px solid blue; */
+  flex: 1;
+  text-align: center;
+}
+
+.register {
+  /* border: 1px solid green; */
+  flex: 1;
+  display: block;
+  text-align: center;
+}
+
+.active {
+  font-weight: bold;
+  border-bottom: 1px solid rgb(22, 101, 167);
+  color: rgb(22, 101, 167) !important;
+}
