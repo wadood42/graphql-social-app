@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0%;
+  box-sizing: border-box;
+}
+.posts-container {
+  display: flex;
+  list-style-type: none;
+
+  border: 1px solid blue;
+}
+
+.single-post {
+  border: 1px solid rgb(184, 184, 184);
+
+  margin: 20px;
+  width: 600px;
+  /* padding: 10px 0px; */
+}
+
+.single-post a {
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  color: black;
+}
+.post-username {
+  font-weight: bold;
+  margin-bottom: 4px;
+  /* margin-left: 4px; */
+}
+.post-created-at {
+  font-size: 0.8rem;
+  color: gray;
+  margin-bottom: 4px;
+  /* margin-left: 4px; */
+}
+
+.post-body {
+  font-size: 0.8rem;
+  padding-bottom: 8px;
+  /* margin-left: 4px; */
+
+  border-bottom: 1px solid rgb(184, 184, 184);
+}
+
+.post-btns {
+  /* border: 1px solid red; */
+  padding: 8px;
+
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.like-icon {
+  /* border: 1px solid green; */
+  flex: 2;
+
+  display: flex;
+  /* flex-direction: row; */
+  /* justify-content: space-between; */
+
+  /* padding: 6px; */
+}
+.like {
+  /* border: 1px solid red; */
+  background: rgb(93, 122, 219);
+  flex: 2;
+  /* text-align: center; */
+  /* padding: 10px; */
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.like-counts {
+  /* border-left: 1px solid rgb(255, 255, 255); */
+  background: rgb(93, 122, 219);
+  flex: 1;
+
+  /* padding: 10px; */
+  color: white;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2px;
+}
+
+.comment-icon {
+  /* border: 1px solid green; */
+  /* padding: 6px; */
+  flex: 2;
+  display: flex;
+
+  border-radius: 4px;
+  margin-left: 2px;
+  /* background: rgb(93, 122, 219); */
+}
+
+.comment {
+  /* border: 1px solid burlywood; */
+  flex: 2;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(93, 122, 219);
+  color: white;
+}
+
+.comment-counts {
+  /* border-left: 1px solid rgb(255, 255, 255); */
+  background: rgb(93, 122, 219);
+  color: white;
+
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  margin-left: 2px;
+}

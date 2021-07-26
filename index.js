@@ -3,10 +3,11 @@ require("dotenv").config({ path: "./configs/.env" });
 const mongoose = require("mongoose");
 const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers/index");
-
+const cors = require("cors");
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  cors: true,
   context: ({ req }) => {
     console.log("Req headers", req.headers);
 
