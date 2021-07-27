@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/Register.css";
 import { useMutation } from "@apollo/client";
 import { REGISTER_USER } from "../queries/queries";
 import { Redirect } from "react-router-dom";
+import { AuthContext } from "../contexts/auth";
 const Register = ({ history }) => {
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   const [errors, setErrors] = useState(null);
   const [values, setValues] = useState({
     username: "",
@@ -11,11 +14,15 @@ const Register = ({ history }) => {
     confirmedPassword: "",
     email: "",
   });
-  const [addUser, { data, loading: mutationLoading, errorr: mutationError }] =
+  const [addUser, { loading: mutationLoading, errorr: mutationError }] =
     useMutation(REGISTER_USER, {
       // update(proxy, result) {
       //   console.log("results isxxxx", result);
       // },
+      update(_, { data: { register: userData } }) {
+        console.log("after register data", userData);
+        authContext.login(userData);
+      },
       onError(err) {
         console.log("mutaion errors", err.graphQLErrors[0].extensions.errors);
         setErrors(err.graphQLErrors[0].extensions.errors);
@@ -23,8 +30,11 @@ const Register = ({ history }) => {
       variables: values,
     });
 
-  if (data) {
-    console.log("data", data);
+  if (mutationLoading) {
+    console.log("loading");
+  }
+  if (user) {
+    return <Redirect to='/' />;
   }
 
   const handleChange = (e) => {

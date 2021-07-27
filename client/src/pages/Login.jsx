@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../queries/queries";
-import { useForm } from "../hooks/useForm";
+// import { useForm } from "../hooks/useForm";
+import { AuthContext } from "../contexts/auth";
+import { Redirect } from "react-router-dom";
 
 const Login = ({ history }) => {
+  const authContext = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(null);
+  const { user } = authContext;
 
-  const [login, { data }] = useMutation(LOGIN, {
+  const [login, { loading }] = useMutation(LOGIN, {
+    update(_, { data: { login: userData } }) {
+      console.log("data from update", userData);
+      authContext.login(userData);
+    },
     onError(err) {
       console.log("graphql errors", err.graphQLErrors[0].extensions.errors);
       setErrors(err.graphQLErrors[0].extensions.errors);
@@ -16,10 +24,16 @@ const Login = ({ history }) => {
     variables: { username: username, password: password },
   });
 
+  if (loading) {
+    console.log("loading...");
+  }
+  if (user) {
+    return <Redirect to='/' />;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     login();
-    // history.push("/");
   };
 
   return (
