@@ -24,6 +24,12 @@ module.exports = {
       const { username, password } = args;
       const { isValid, errors } = validateLogin(args);
 
+      if (!isValid()) {
+        throw new UserInputError("Sorry bud", {
+          errors,
+        });
+      }
+
       const user = await User.findOne({ username: username });
 
       if (!user) {
@@ -34,12 +40,6 @@ module.exports = {
       if (!match) {
         errors.general = "wrong credentials";
         throw new UserInputError("wrong credentials", { errors });
-      }
-
-      if (!isValid) {
-        throw new UserInputError("Sorry bud", {
-          errors,
-        });
       }
 
       const token = generateToken(user);
