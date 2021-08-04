@@ -45,3 +45,52 @@
   border-bottom: 1px solid rgb(22, 101, 167);
   color: rgb(106, 106, 228) !important;
 }
+
+.logout-btn {
+  /* background: red; */
+  /* padding: 2px; */
+  color: rgb(106, 106, 228);
+  border: none;
+  font-weight: bold;
+  background: inherit;
+  cursor: pointer;
+}
+
+.login-link {
+  /* border: 1px solid red; */
+  padding: 0;
+  margin: 4px;
+  border-radius: 4px;
+  text-align: center;
+  padding: 8px;
+  background: rgb(106, 106, 228);
+  cursor: pointer;
+}
+
+.login-link a {
+  text-decoration: none;
+  color: rgb(211, 211, 211);
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.login-link a:hover {
+  color: white;
+}
+
+.loading {
+  border: 1px solid red;
+  position: absolute;
+  top: 100px;
+  left: 35%;
+  border: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 400px;
+  height: 400px;
+
+  z-index: 1;
+}

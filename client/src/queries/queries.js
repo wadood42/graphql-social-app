@@ -51,3 +51,51 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const CREATE_POST = gql`
+  mutation createPost($body: String!) {
+    createPost(body: $body) {
+      username
+      id
+      body
+    }
+  }
+`;
+
+export const DELETE_POST = gql`
+  mutation deletePostMutation($postId: ID!) {
+    deletePost(postId: $postId) {
+      id
+    }
+  }
+`;
+
+export const LIKE_POST = gql`
+  mutation likePostMutation($postId: ID!) {
+    likePost(postId: $postId) {
+      body
+      username
+      id
+    }
+  }
+`;
+
+export const GET_POST = gql`
+  query ($postId: ID!) {
+    getPost(postId: $postId) {
+      id
+      body
+      createdAt
+      comments {
+        body
+        username
+        createdAt
+      }
+      likes {
+        username
+        createdAt
+      }
+      username
+    }
+  }
+`;

@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import "../styles/Register.css";
 import { useMutation } from "@apollo/client";
 import { REGISTER_USER } from "../queries/queries";
-import { Redirect } from "react-router-dom";
 import { AuthContext } from "../contexts/auth";
+import { Link, withRouter, Redirect } from "react-router-dom";
 const Register = ({ history }) => {
   const authContext = useContext(AuthContext);
   const { user } = authContext;
@@ -14,6 +14,7 @@ const Register = ({ history }) => {
     confirmedPassword: "",
     email: "",
   });
+
   const [addUser, { loading: mutationLoading, errorr: mutationError }] =
     useMutation(REGISTER_USER, {
       // update(proxy, result) {
@@ -33,9 +34,6 @@ const Register = ({ history }) => {
   if (mutationLoading) {
     console.log("loading");
   }
-  if (user) {
-    return <Redirect to='/' />;
-  }
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -43,7 +41,15 @@ const Register = ({ history }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addUser();
-    history.push("/");
+  };
+
+  const checkFields = () => {
+    return (
+      values.username === "" ||
+      values.email === "" ||
+      values.password === "" ||
+      values.confirmedPassword === ""
+    );
   };
   return (
     <div className='form-container'>
@@ -89,7 +95,10 @@ const Register = ({ history }) => {
           value={values.confirmedPassword}
           onChange={(e) => handleChange(e)}
         />
-        <input type='submit' value='Register' />
+        <input type='submit' value='Register' disabled={checkFields()} />
+        <div className='login-link'>
+          <Link to='/'>Login</Link>
+        </div>
       </form>
       {mutationLoading && <p>Creating your account</p>}
       {mutationError && <p>Error please try again</p>}
@@ -107,4 +116,4 @@ const Register = ({ history }) => {
   );
 };
 
-export default Register;
+export default withRouter(Register);

@@ -4,12 +4,21 @@ const checkAuth = require("../../utils/check_auth");
 const { validatePost } = require("../../validations/post_validations");
 module.exports = {
   Query: {
-    async getPosts() {
-      try {
-        const posts = await Post.find().sort({ createdAt: -1 });
-        return posts;
-      } catch (err) {
-        throw new Error(err);
+    async getPosts(parent, args, context) {
+      const user = checkAuth(context);
+
+      if (user) {
+        console.log("user from getposts resolvers", user);
+        try {
+          const posts = await Post.find({ username: user.username }).sort({
+            createdAt: -1,
+          });
+          return posts;
+        } catch (err) {
+          throw new Error(err);
+        }
+      } else {
+        throw new AuthenticationError();
       }
     },
 
@@ -58,7 +67,7 @@ module.exports = {
         console.log("post to be deleted", post);
         if (user.username === post.username) {
           await post.delete();
-          return "Post has been deleted";
+          return post;
         } else {
           throw new AuthenticationError("Action not allowed");
         }

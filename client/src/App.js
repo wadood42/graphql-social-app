@@ -4,21 +4,29 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import MenuBar from "./components/MenuBar";
-import { AuthProvider } from "./contexts/auth";
+import { AuthProvider, AuthContext } from "./contexts/auth";
+import AuthRoutes from "./components/AuthRoutes";
+import SinglePost from "./pages/SinglePost";
+import { useContext } from "react";
 function App() {
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   return (
-    <AuthProvider>
-      <Router>
-        <div className='main-container'>
-          <MenuBar />
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/login' component={Login} />
-            <Route path='/register' component={Register} />
-          </Switch>
-        </div>
-      </Router>
-    </AuthProvider>
+    <Router>
+      <div className='main-container'>
+        <MenuBar />
+        <Switch>
+          <Route exact path='/'>
+            {user ? <Home /> : <Login />}
+          </Route>
+          {/* <AuthRoutes path='/login' component={Login} /> */}
+          <AuthRoutes path='/register' component={Register} />
+          <Route path='/posts/:postId'>
+            {user ? <SinglePost /> : <Login />}
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

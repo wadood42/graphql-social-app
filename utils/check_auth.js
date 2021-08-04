@@ -8,14 +8,14 @@ module.exports = (context) => {
     console.log("token", token);
     if (token) {
       try {
-        const user = jwt.verify(token, "MONIB_KHAN");
-        console.log("user ", user);
-        return user;
+        return jwt.verify(token, process.env.SECRET_KEY);
+        // console.log("user ", user);
+        // return user;
       } catch (err) {
         throw new AuthenticationError("Invalid/Expired token");
       }
     }
     throw new Error("Authentication token is invalid");
   }
-  throw new Error("Authorization header must be present");
+  throw new Error("You must be logged in");
 };

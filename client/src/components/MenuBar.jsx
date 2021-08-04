@@ -22,7 +22,7 @@ const MenuBar = () => {
   const unauthMenu = () => {
     return (
       <div className='menu container'>
-        <CustomLink to='/login' label='Login' className='login' />
+        <CustomLink to='/' label='Login' className='login' />
         <CustomLink to='/register' label='Register' className='register' />
       </div>
     );
@@ -37,7 +37,9 @@ const MenuBar = () => {
           label={user.username}
           className='home'
         />
-        <button onClick={() => logout()}>Logout</button>
+        <button className='logout-btn' onClick={() => logout()}>
+          LOGOUT
+        </button>
       </div>
     );
   };

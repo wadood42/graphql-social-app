@@ -27,9 +27,6 @@ const Login = ({ history }) => {
   if (loading) {
     console.log("loading...");
   }
-  if (user) {
-    return <Redirect to='/' />;
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,7 +55,11 @@ const Login = ({ history }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <input type='submit' value='Login' />
+        <input
+          type='submit'
+          value='Login'
+          disabled={username === "" || password === ""}
+        />
       </form>
       {errors && (
         <ul className='errors'>
