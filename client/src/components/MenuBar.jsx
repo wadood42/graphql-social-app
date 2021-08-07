@@ -34,9 +34,16 @@ const MenuBar = () => {
         <CustomLink
           to='/'
           activeOnOnlyExact={true}
-          label={user.username}
+          label='Home'
           className='home'
         />
+        <CustomLink
+          to={`/${user.username}`}
+          activeOnOnlyExact={true}
+          label={user.username}
+          className='profile'
+        />
+
         <button className='logout-btn' onClick={() => logout()}>
           LOGOUT
         </button>

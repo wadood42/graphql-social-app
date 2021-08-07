@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import MenuBar from "./components/MenuBar";
 import { AuthProvider, AuthContext } from "./contexts/auth";
 import AuthRoutes from "./components/AuthRoutes";
+import Profile from "./pages/Profile";
 import SinglePost from "./pages/SinglePost";
 import { useContext } from "react";
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path='/posts/:postId'>
             {user ? <SinglePost /> : <Login />}
           </Route>
+          <Route path='/:username' component={Profile} />
         </Switch>
       </div>
     </Router>

@@ -20,6 +20,15 @@ export const FETCH_POSTS_QUERY = gql`
   }
 `;
 
+export const GET_USERS = gql`
+  {
+    getUsers {
+      id
+      username
+    }
+  }
+`;
+
 export const REGISTER_USER = gql`
   mutation register(
     $username: String!
@@ -96,6 +105,15 @@ export const GET_POST = gql`
         createdAt
       }
       username
+    }
+  }
+`;
+
+export const FOLLOW = gql`
+  mutation followMutation($username: String!) {
+    follow(username: $username) {
+      username
+      id
     }
   }
 `;

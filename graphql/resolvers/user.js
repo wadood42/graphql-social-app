@@ -1,7 +1,8 @@
 const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { UserInputError } = require("apollo-server");
+const checkAuth = require("../../utils/check_auth");
+const { UserInputError, AuthenticationError } = require("apollo-server");
 const {
   validateRegisterInput,
 } = require("../../validations/registeration_validations");
@@ -19,7 +20,31 @@ function generateToken(user) {
 }
 const { validateLogin } = require("../../validations/login_validation");
 module.exports = {
+  Query: {
+    async getUsers(parent, args, context) {
+      console.log("getting all userssssss");
+      const user = checkAuth(context);
+
+      if (user) {
+        const users = await User.find();
+        console.log("getting users", users);
+        return users;
+      } else {
+        throw new AuthenticationError("log in first");
+      }
+    },
+  },
   Mutation: {
+    async follow(_, args, context) {
+      console.log("following user args", args);
+      const user = checkAuth(context);
+
+      if (user) {
+        console.log("user for following", args);
+      } else {
+        throw new AuthenticationError("log in first");
+      }
+    },
     async login(_, args) {
       const { username, password } = args;
       const { isValid, errors } = validateLogin(args);

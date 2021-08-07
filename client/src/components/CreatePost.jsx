@@ -42,10 +42,10 @@ const CreatePost = ({ client }) => {
     setError("");
   };
   return (
-    <div className='form-container'>
-      <h1>Create post</h1>
+    <div className='create-form'>
+      <h3>Create post</h3>
       <form className='create-post' onSubmit={handleSubmit}>
-        <input
+        <textarea
           type='text'
           placeholder='Hi World!'
           name='body'

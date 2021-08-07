@@ -1,7 +1,13 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 .main-container {
   /* border: 1px solid blue; */
   max-width: 1200px;
   margin: 0 auto;
+  background: rgb(240, 240, 240);
 }
 
 .menu {
@@ -18,7 +24,7 @@
   text-decoration: none;
   color: rgb(136, 134, 134);
   /* border: 1px solid red; */
-  padding-bottom: 9px;
+  /* padding-bottom: 9px; */
 }
 
 .home {
@@ -26,7 +32,9 @@
   flex: 6;
   /* display: block; */
 }
-
+.profile {
+  margin: 0 20px;
+}
 .login {
   /* border: 1px solid blue; */
   flex: 1;
@@ -93,4 +101,28 @@
   height: 400px;
 
   z-index: 1;
+}
+
+.home-container {
+  border: 1px solid red;
+  /* display: flex; */
+  display: flex;
+}
+
+.side-menu {
+  border: 1px solid gray;
+  flex: 1;
+}
+/* POSTS CONTAINER STYLES */
+.posts-container {
+  border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+}
+
+/* USERS TO FOLLOW STYLES  */
+.users-to-follow {
+  border: 1px solid green;
+  flex: 1;
 }

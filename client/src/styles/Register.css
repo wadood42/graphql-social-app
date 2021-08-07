@@ -68,12 +68,6 @@
 
 /* CREATE POST STYLE */
 
-.create-post {
-  border: 1px solid rgb(184, 184, 184);
-
-  padding: 10px;
-}
-
 input[type="submit"]:disabled {
   /* background: red; */
   color: gray;
@@ -81,4 +75,16 @@ input[type="submit"]:disabled {
 
 input[type="submit"]:hover {
   color: gray !important;
+}
+
+.create-form {
+  border: 1px solid red;
+  
+}
+
+.create-post {
+  border: 1px solid rgb(214, 181, 181);
+
+  padding: 10px;
+  /* width: 100% !important; */
 }

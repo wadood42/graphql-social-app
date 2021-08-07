@@ -31,7 +31,7 @@ const Post = ({ post }) => {
   });
 
   return (
-    <li className='single-post'>
+    <div className='post'>
       <Link to={`/posts/${post.id}`}>
         <p className='post-username'>{post.username}</p>
         <p className='post-created-at'>{format(post.createdAt)}</p>
@@ -50,13 +50,13 @@ const Post = ({ post }) => {
           </span>
           <span className='comment-counts'>{post.comments.length}</span>
         </div>
-        <button className='delete-btn' onClick={() => deletePost()}>
+        <div className='delete-btn' onClick={() => deletePost()}>
           <span className='delete-icon'>
             <FaTrash />
           </span>
-        </button>
+        </div>
       </div>
-    </li>
+    </div>
   );
 };
 

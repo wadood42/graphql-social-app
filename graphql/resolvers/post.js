@@ -77,6 +77,7 @@ module.exports = {
     },
     likePost: async (prarent, args, context) => {
       const user = checkAuth(context);
+      console.log("liking post", context.req.headers);
 
       if (user) {
         const post = await Post.findById(args.postId);

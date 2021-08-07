@@ -35,7 +35,7 @@ const Login = ({ history }) => {
 
   return (
     <div className='form-container'>
-      <h1>Login</h1>
+      <h1 data-testid='header'>Login</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor='username'>Username</label>
         <input
