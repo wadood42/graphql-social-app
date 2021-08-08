@@ -18,7 +18,10 @@ const UsersToFollow = () => {
 
       {data?.getUsers.map((user) => (
         <div className='user'>
-          <Link to={`/${user.username}`}>
+          <Link
+            to={{
+              pathname: `/${user.id}`,
+            }}>
             <p className='username'>{user.username}</p>
           </Link>
           <button className='follow-btn'>Follow</button>

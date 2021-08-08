@@ -1,6 +1,3 @@
-* {
-  box-sizing: border-box;
-}
 .posts {
   /* border: 1px solid rebeccapurple; */
 
@@ -21,6 +18,10 @@
   margin: 20px;
   background-color: white;
 }
+.post-link {
+  /* border: 1px solid red; */
+  padding: 10px;
+}
 
 .post a {
   display: block;
@@ -28,11 +29,23 @@
 
   text-decoration: none;
 }
+
+.post a:hover {
+  background-color: rgb(245, 245, 245);
+}
 .post-username {
   font-weight: bold;
+  cursor: pointer;
+  /* border: 1px solid red; */
+  padding: 6px;
+}
+.post-username:hover {
+  color: rgb(63, 60, 60);
+  /* background-color: rgb(231, 231, 231); */
 }
 .post-created-at {
   /* border: 1px solid blue; */
+
   font-size: 0.7rem;
   color: rgb(153, 151, 151) !important;
 }
@@ -43,7 +56,7 @@
 }
 .post p {
   color: rgb(0, 0, 0);
-  background-color: rgb(250, 250, 250);
+  /* background-color: rgb(250, 250, 250); */
 }
 
 .post-btns {
@@ -65,18 +78,28 @@
 .like {
   cursor: pointer;
 }
+
+.like:hover {
+  background-color: rgb(107, 121, 247);
+}
 .comment {
   cursor: pointer;
+}
+.comment:hover {
+  background-color: rgb(107, 121, 247);
 }
 
 .delete-icon {
   cursor: pointer;
 }
+.delete-icon:hover {
+  background-color: rgb(107, 121, 247);
+}
 
 .post-btns span {
   /* border: 1px solid green; */
 
-  padding: 4px 30px;
+  padding: 1px 30px;
   margin-left: 4px;
   display: block;
   background-color: rgb(103, 103, 236);

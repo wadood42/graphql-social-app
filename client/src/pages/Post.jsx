@@ -32,27 +32,35 @@ const Post = ({ post }) => {
 
   return (
     <div className='post'>
-      <Link to={`/posts/${post.id}`}>
-        <p className='post-username'>{post.username}</p>
-        <p className='post-created-at'>{format(post.createdAt)}</p>
-        <p className='post-body'>{post.body}</p>
-      </Link>
+      <div className='post-link'>
+        <Link to={`/${post.author.id}`}>
+          <p className='post-username'>{post.author.username}</p>
+        </Link>
+        <Link to={`/posts/${post.id}`} className='post-link'>
+          <p className='post-created-at'>{format(post.createdAt)}</p>
+          <p className='post-body'>{post.body.slice(0, 100)}...</p>
+        </Link>
+      </div>
       <div className='post-btns'>
         <div className='like-icon'>
           <span className='like' onClick={likePost}>
-            <FaHeart color='red' />
+            <FaHeart color='red' size='12' />
           </span>
-          <span className='like-counts'>{post.likes.length}</span>
+          <span style={{ fontSize: "0.8rem" }} className='like-counts'>
+            {post.likes.length}
+          </span>
         </div>
         <div className='comment-icon'>
           <span className='comment'>
-            <FaRegCommentDots />
+            <FaRegCommentDots size='12' />
           </span>
-          <span className='comment-counts'>{post.comments.length}</span>
+          <span className='comment-counts' style={{ fontSize: "0.8rem" }}>
+            {post.comments.length}
+          </span>
         </div>
         <div className='delete-btn' onClick={() => deletePost()}>
           <span className='delete-icon'>
-            <FaTrash />
+            <FaTrash size='12' />
           </span>
         </div>
       </div>

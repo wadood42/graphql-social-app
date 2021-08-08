@@ -38,7 +38,7 @@ const MenuBar = () => {
           className='home'
         />
         <CustomLink
-          to={`/${user.username}`}
+          to={`/${user.id}`}
           activeOnOnlyExact={true}
           label={user.username}
           className='profile'

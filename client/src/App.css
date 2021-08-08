@@ -104,18 +104,18 @@
 }
 
 .home-container {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   /* display: flex; */
   display: flex;
 }
 
 .side-menu {
-  border: 1px solid gray;
+  border-right: 2px solid rgb(255, 255, 255);
   flex: 1;
 }
 /* POSTS CONTAINER STYLES */
 .posts-container {
-  border: 1px solid green;
+  /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
   flex: 2;
@@ -123,6 +123,6 @@
 
 /* USERS TO FOLLOW STYLES  */
 .users-to-follow {
-  border: 1px solid green;
+  border-left: 2px solid rgb(255, 255, 255);
   flex: 1;
 }

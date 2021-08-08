@@ -4,10 +4,10 @@ module.exports = gql`
   type Post {
     id: ID!
     body: String!
-    username: String!
     createdAt: String!
     comments: [Comment]!
     likes: [Like]!
+    author: User!
   }
 
   type User {
@@ -15,33 +15,34 @@ module.exports = gql`
     email: String!
     token: String!
     username: String!
-    followers: [Follower]
-    followings: [Following]
+    followers: [Follower]!
+    followings: [Following]!
+    posts: [Post]!
     createdAt: String!
   }
 
   type Follower {
     id: ID!
-    username: String!
+    followerId: String!
     createdAt: String!
   }
 
   type Following {
     id: ID!
-    username: String!
+    followingId: String!
     createdAt: String!
   }
 
   type Comment {
     id: ID!
     body: String!
-    username: String!
+    author: String!
     createdAt: String!
   }
 
   type Like {
     id: ID!
-    username: String!
+    author: String!
     createdAt: String!
   }
 
@@ -51,6 +52,7 @@ module.exports = gql`
     getPosts: [Post]
     getPost(postId: ID!): Post!
     getUsers: [User]
+    getUser(userId: ID!): User!
   }
 
   type Mutation {
@@ -60,8 +62,8 @@ module.exports = gql`
       email: String!
       confirmedPassword: String!
     ): User!
-    follow(username: String!): User!
-    unfollow(username: String!): User!
+    follow(followingId: String!): User!
+    unfollow(unfollowingId: String!): User!
     login(username: String!, password: String!): User!
     createPost(body: String!): Post!
     deletePost(postId: ID!): Post!

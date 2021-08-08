@@ -5,16 +5,16 @@ export const FETCH_POSTS_QUERY = gql`
     getPosts {
       id
       body
-      username
       createdAt
-      likes {
+      author {
         username
+        id
       }
       comments {
-        id
-        username
-        createdAt
         body
+      }
+      likes {
+        id
       }
     }
   }
@@ -57,6 +57,12 @@ export const LOGIN = gql`
       email
       token
       username
+      followers {
+        id
+      }
+      followings {
+        id
+      }
     }
   }
 `;
@@ -64,8 +70,10 @@ export const LOGIN = gql`
 export const CREATE_POST = gql`
   mutation createPost($body: String!) {
     createPost(body: $body) {
-      username
       id
+      author {
+        username
+      }
       body
     }
   }
@@ -110,10 +118,59 @@ export const GET_POST = gql`
 `;
 
 export const FOLLOW = gql`
-  mutation followMutation($username: String!) {
-    follow(username: $username) {
+  mutation followMutation($followingId: String!) {
+    follow(followingId: $followingId) {
       username
       id
+    }
+  }
+`;
+
+export const UNFOLLOW = gql`
+  mutation unfollowMutation($unfollowingId: String!) {
+    unfollow(unfollowingId: $unfollowingId) {
+      id
+      username
+    }
+  }
+`;
+
+export const GET_USER = gql`
+  query ($userId: ID!) {
+    getUser(userId: $userId) {
+      username
+      email
+      followers {
+        id
+        followerId
+      }
+      followings {
+        id
+        followingId
+      }
+
+      id
+      posts {
+        body
+        createdAt
+        id
+        likes {
+          id
+        }
+        comments {
+          id
+        }
+        author {
+          username
+          id
+        }
+      }
+      followers {
+        id
+      }
+      followings {
+        id
+      }
     }
   }
 `;

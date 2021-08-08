@@ -1,5 +1,6 @@
 const { AuthenticationError, UserInputError } = require("apollo-server");
 const Post = require("../../models/Post");
+const User = require("../../models/User");
 const checkAuth = require("../../utils/check_auth");
 const { validatePost } = require("../../validations/post_validations");
 module.exports = {
@@ -10,9 +11,12 @@ module.exports = {
       if (user) {
         console.log("user from getposts resolvers", user);
         try {
-          const posts = await Post.find({ username: user.username }).sort({
+          // const posts = await Post.find({ author: user.id }).sort({
+          //   createdAt: -1,
+          const posts = await Post.find().populate("author").sort({
             createdAt: -1,
           });
+          console.log("found posts", posts);
           return posts;
         } catch (err) {
           throw new Error(err);
@@ -40,16 +44,22 @@ module.exports = {
     async createPost(parent, { body }, context) {
       const user = checkAuth(context);
 
+      console.log("creating post", user);
+
       if (user) {
         const { isValid, errors } = validatePost(body);
         if (isValid()) {
           const newPost = new Post({
             body,
-            user: user.id,
-            username: user.username,
+            author: user.id,
           });
+
+          const foundUser = await User.findById(user.id);
+
           const savedPost = await newPost.save();
-          return savedPost;
+          foundUser.posts.push(savedPost._id);
+          await foundUser.save();
+          return await Post.findById(savedPost._id).populate("author");
         } else {
           throw new UserInputError(errors.body);
         }
@@ -64,8 +74,13 @@ module.exports = {
 
       try {
         const post = await Post.findById(args.postId);
-        console.log("post to be deleted", post);
-        if (user.username === post.username) {
+        console.log(
+          "post to be deleted",
+          JSON.stringify(post.author) === user.id
+        );
+
+        if (user.id === post.author) {
+          console.log("yay im in");
           await post.delete();
           return post;
         } else {

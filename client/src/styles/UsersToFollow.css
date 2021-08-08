@@ -28,6 +28,10 @@
   color: black;
 }
 
+.user a:hover {
+  color: gray;
+}
+
 .username {
   /* border: 1px solid green; */
   padding: 2px 6px;
@@ -40,8 +44,13 @@
   padding: 2px 6px;
   font-size: 0.8rem;
   border-radius: 4px;
+  font-weight: bold;
 
   border: none;
 
   cursor: pointer;
+}
+
+.follow-btn:hover {
+  background: rgb(104, 104, 245);
 }

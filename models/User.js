@@ -1,19 +1,21 @@
 const { model, Schema } = require("mongoose");
-
+const Post = require("./Post");
 const userSchema = new Schema(
   {
     username: String,
     password: String,
     email: String,
+    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+
     followers: [
       {
-        username: String,
+        followerId: { type: Schema.Types.ObjectId, ref: "User" },
         createdAt: String,
       },
     ],
     followings: [
       {
-        username: String,
+        followingId: { type: Schema.Types.ObjectId, ref: "User" },
         createdAt: String,
       },
     ],

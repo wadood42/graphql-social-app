@@ -1,27 +1,23 @@
 const { model, Schema } = require("mongoose");
+const User = require("./User");
 
 const postSchema = new Schema(
   {
     body: String,
-    username: String,
+    author: { type: Schema.Types.ObjectId, ref: "User" },
     comments: [
       {
         body: String,
-        username: String,
+        author: { type: Schema.Types.ObjectId, ref: "User" },
         createdAt: String,
       },
     ],
     likes: [
       {
-        username: String,
+        author: { type: Schema.Types.ObjectId, ref: "User" },
         createdAt: String,
       },
     ],
-
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "users",
-    },
   },
   { timestamps: true }
 );

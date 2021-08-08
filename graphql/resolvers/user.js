@@ -19,8 +19,20 @@ function generateToken(user) {
   );
 }
 const { validateLogin } = require("../../validations/login_validation");
+
 module.exports = {
   Query: {
+    async getUser(parent, args, context) {
+      console.log("gettting single user", args);
+
+      const user = await User.findById(args.userId).populate({
+        path: "posts",
+        populate: { path: "author" },
+      });
+
+      console.log("yaya found user", user);
+      return user;
+    },
     async getUsers(parent, args, context) {
       console.log("getting all userssssss");
       const user = checkAuth(context);
@@ -36,15 +48,62 @@ module.exports = {
   },
   Mutation: {
     async follow(_, args, context) {
-      console.log("following user args", args);
       const user = checkAuth(context);
 
       if (user) {
         console.log("user for following", args);
+        const followingUser = await User.findById(args.followingId);
+        console.log("followingUser", followingUser);
+        const followerUser = await User.findById(user.id);
+
+        if (!followingUser.followers.includes(user.id)) {
+          followingUser.followers.push({
+            followerId: followerUser._id,
+            createdAt: new Date().toISOString(),
+          });
+
+          followerUser.followings.push({
+            followingId: followingUser._id,
+            createdAt: new Date().toISOString(),
+          });
+
+          console.log("user", followerUser);
+          await followingUser.save();
+          await followerUser.save();
+        }
+
+        return followingUser;
       } else {
         throw new AuthenticationError("log in first");
       }
     },
+
+    async unfollow(parent, args, context) {
+      const user = checkAuth(context);
+      console.log("args", args);
+
+      const follower = await User.findById(user.id);
+      const following = await User.findById(args.unfollowingId);
+
+      await follower.updateOne({
+        $pull: { followings: { followingId: following._id } },
+      });
+
+      await following.updateOne({
+        $pull: {
+          followers: { followerId: follower._id },
+        },
+      });
+
+      console.log("follower", follower);
+      console.log("following", following);
+
+      // await follower.save();
+      // await following.save();
+
+      return following;
+    },
+
     async login(_, args) {
       const { username, password } = args;
       const { isValid, errors } = validateLogin(args);

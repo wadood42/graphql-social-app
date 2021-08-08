@@ -25,7 +25,7 @@ function App() {
           <Route path='/posts/:postId'>
             {user ? <SinglePost /> : <Login />}
           </Route>
-          <Route path='/:username' component={Profile} />
+          <Route path='/:userId' component={Profile} />
         </Switch>
       </div>
     </Router>
